@@ -1,0 +1,46 @@
+from transformers import GPT2Tokenizer, GPT2LMHeadModel
+
+# 加载GPT-2模型和Tokenizer
+tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+model = GPT2LMHeadModel.from_pretrained("gpt2")
+import torch
+
+def generate_text(seed_text, max_length=50):
+    # 编码输入文本
+    input_ids = tokenizer.encode(seed_text, return_tensors="pt")
+
+    # 生成文本
+    with torch.no_grad():
+        output = model.generate(input_ids, max_length=max_length, num_return_sequences=1, no_repeat_ngram_size=2)
+
+    # 解码生成的文本
+    generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
+    return generated_text
+
+# 示例使用
+seed_text = "Once upon a time"
+generated_text = generate_text(seed_text, max_length=100)
+print(generated_text)
+from transformers import GPT2Tokenizer, GPT2LMHeadModel
+import torch
+
+# 加载GPT-2模型和Tokenizer
+tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+model = GPT2LMHeadModel.from_pretrained("gpt2")
+
+def generate_text(seed_text, max_length=50):
+    # 编码输入文本
+    input_ids = tokenizer.encode(seed_text, return_tensors="pt")
+
+    # 生成文本
+    with torch.no_grad():
+        output = model.generate(input_ids, max_length=max_length, num_return_sequences=1, no_repeat_ngram_size=2)
+
+    # 解码生成的文本
+    generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
+    return generated_text
+
+# 示例使用
+seed_text = "Once upon a time"
+generated_text = generate_text(seed_text, max_length=100)
+print(generated_text)
